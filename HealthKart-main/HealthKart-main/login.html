@@ -259,40 +259,40 @@
     let log=document.getElementById("login");
     login.style.color="rgb(0,174,174)";
     
-     function signin(){
-        var registeruser=JSON.parse(localStorage.getItem("userdata"));
-        console.log(registeruser);
-        var registerusername=document.getElementById("email_value").value;
+    async function signin(){
+         
+        var registerusername = document.getElementById("email_value").value;
+
         var registerpassword=document.getElementById("password_value").value;
-        let msg=0
 
-        for(let i=0;i<registeruser.length;i++){
+         let regUsers = async() => {
+             try{
+                 let res = await fetch("http://localhost:2500/users/");
+                 let data = await res.json();
+                 return data;
+             }catch(err){
+                 console.log(err);
+             }
+         }
 
-           if(registeruser[i].useremail==registerusername && registeruser[i].userpass==registerpassword){
-               msg=1;
-               
-               
-               
-                
-           }
+         let data = await regUsers();
+         let res = false;
+         data.forEach((el) => {
+             if(el.email == registerusername && el.password == registerpassword){
+                 res = true;
+             }
+         });
 
-        }
-        if(msg==0){
-            alert("warning email id and password not match");
-
-        }
-        else{
-            window.location.href="product.html"
-        }
+         if(res == true){
+             alert("Login Successful!");
+             window.location.href = "./index.html";
+         }else if(registerusername == "" || registerpassword == ""){
+             alert("Please fill all the given credentials!");
+         }else{
+             alert("User credentials are not valid!");
+         }
+         }
         
-               
-               
-           
-
-          
-           
-
-        }
 
         function redirect_to_signup(){
             window.location.href="signup.html"

@@ -13,6 +13,18 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
+const userController = require("./controller/user.controller");
+
+const productController = require("./controller/product.controller");
+
+const cartController = require("./controller/cart.controller");
+
+app.use("/users/", userController);
+
+app.use("/carts/", cartController);
+
+app.use("/products/", productController);
+
 app.listen(2500, async() => {
     try{
         await connect();

@@ -260,39 +260,62 @@
 <script>
      let log=document.getElementById("signup");
     log.style.color="rgb(0,174,174)";
-    var user_register=JSON.parse(localStorage.getItem("userdata"))||[];
-    function signup(){
-      
-  
-        let user_name=document.getElementById("user_value").value;
-        let user_email=document.getElementById("email_value").value;
-        let user_pass=document.getElementById("password_value").value;
-        
-        if(user_name.length<5){
-            alert("username must 6 digit character")
 
-        }
-       
-        
+     async function signup(){
+         
+         // check for all registered users
+         let regUsers = async() => {
+             try{
+                let res = await fetch("http://localhost:2500/users/");
+            let data = await res.json();
+           return data;
+             }catch(err){
+                 console.log(err);
+             }
+         }
 
-   else{
-        var regiter_user={
-            username:user_name,
-            useremail:user_email,
-            userpass:user_pass,
-            
-        };
-        user_register.push(regiter_user);
-        console.log(user_register);
-        localStorage.setItem("userdata",JSON.stringify(user_register));
-        window.location.href="login.html";
-    }
-       
-       
+         // input data
+        let name = document.getElementById("user_value").value;
+        let email = document.getElementById("email_value").value;
+        let password = document.getElementById("password_value").value;
+        
+         let data = await regUsers();
+        
+         // checking users with name and password;
+         let res = false;
+         data.forEach((el) => {
+             if(el.name == name && el.password == password){
+                 res = true;
+             }
+         });
+
+         if(res == true){
+             alert("User has already registered !");
+         }else if(name == "" || email == "" || password == ""){
+          alert("Please fill all the given user credentials");
+         }else{
+             fetch("http://localhost:2500/users/", {
+                 "method": "POST",
+                 "headers": {
+                     "content-type": "application/json"
+                 },
+                 "body": JSON.stringify({
+                  name: name,
+                  email: email,
+                  password: password
+                 })
+         }).then(response => response.json())
+      .then(result => {
+          alert("Account created successfully!");
+          window.location.href = "./login.html";
+      });
+ 
     
     }
+
     function redirect_to_login(){
-        window.location.href="login.html";
+        window.location.href= "login.html";
     }
+     }
 
 </script>

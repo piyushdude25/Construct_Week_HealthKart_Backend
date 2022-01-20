@@ -6,7 +6,7 @@ const Cart = require("../models/cart.model");
 // get --- for login
 // post --- for registering
 
-router.post("/" async(req, res) => {
+router.post("/", async(req, res) => {
     try{
         const user = await User.create(req.body);
         return res.status(200).send(user);
@@ -17,7 +17,7 @@ router.post("/" async(req, res) => {
 
 router.get("/", async(req, res) => {
     try{
-        const user = await User.find().lean().exec();
+        const user = await User.find();
         return res.status(200).send(user);
     }catch(err){
         return res.status(500).send(err.message);
