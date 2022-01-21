@@ -79,7 +79,7 @@ function displayItem(showCartaItem) {
         id: item._id
       })
     });
-         alert("Item Successfully Removed From Your Cart!");
+         alert("Are you want to remove this item from your cart?");
         window.location.reload();
       }
 
@@ -159,7 +159,7 @@ function displayItem(showCartaItem) {
         console.log(err);
       });
 
-      alert(` Quantity is Updated to ${value} `);
+      alert(` Are you sure to update quantity of this item to ${value} in your cart? `);
       window.location.reload();
 }
 
