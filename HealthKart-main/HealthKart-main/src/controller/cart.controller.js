@@ -38,4 +38,13 @@ router.delete("/remove/:id/", async(req, res) => {
     }
 });
 
+router.delete("/removeAll/", async(req, res) => {
+    try{
+        const cart = await Cart.deleteMany().lean().exec();
+        return res.status(200).send(cart);
+    }catch(err){
+        return res.status(500).send(err.message);
+    }
+});
+
 module.exports = router;

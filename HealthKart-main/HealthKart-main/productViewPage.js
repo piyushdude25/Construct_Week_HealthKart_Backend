@@ -15,12 +15,20 @@ function makeSticky() {
 }
 
 
+
 let cartIcon = document.getElementById('drop');
 let dropdown = document.getElementById('cartDropDown');
-cartIcon.onmouseover = function(){
-  document.querySelector('.firstItemBox').innerHTML = null;
+cartIcon.onmouseover = () => {
+  document.querySelector('.firstItemBox').innerHTML = "";
+    
+    async function get() {
+  document.querySelector('.firstItemBox').innerHTML = "";
+
+   let cartItems = await getCartData();
 
  dropdown.style.display = "block";
+ dropdown.style.overflowY = "hidden";
+
 
  let div = document.createElement("div");
 
@@ -45,6 +53,9 @@ div.append(img, name);
 dropDown.append(div, div2);
 div.setAttribute('class',"lastFlex");
 div2.setAttribute('class',"lastFlex");
+dropDown.removeChilds();
+    }
+    get();
 }
 
 
@@ -112,8 +123,8 @@ let currentPrice = document.getElementById('price');
 currentPrice.textContent = product.curPrice;
 
 
-let oriPrice = document.getElementById('oriPrice');
-oriPrice.textContent = product.oriPrice;
+let originalPrice = document.getElementById('oriPrice');
+originalPrice.textContent = product.oriPrice;
 
 
 
@@ -122,7 +133,7 @@ oriPrice.textContent = product.oriPrice;
 
 // quantity updation part
 
-let quantity = document.getElementById('quantity');
+let quant = document.getElementById('quantity');
 
 let increase = document.getElementById('increase');
 
@@ -133,6 +144,7 @@ let increment = () => {
     reduce.style.color = "teal";
   }
     product.quantity = value;
+    localStorage.setItem("product", JSON.stringify(product));
     document.getElementById('quantity').textContent = product.quantity;
 }
 
@@ -151,9 +163,11 @@ let decrement = () => {
   }
   if(value <= 1){
     product.quantity = 1;
+        localStorage.setItem("product", JSON.stringify(product));
      document.getElementById('quantity').textContent = product.quantity;
   }else{
     product.quantity = value;
+        localStorage.setItem("product", JSON.stringify(product));
      document.getElementById('quantity').textContent = product.quantity;
   }
 }
@@ -165,19 +179,57 @@ reduce.addEventListener('click', decrement);
 let addTocart = document.getElementById('addTocart');
 
 
-let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
-let addingToCart = () => {
+let getCartData = async() => {
+  let res = await fetch("http://localhost:2500/carts/");
+  let data = await res.json();
+  return data;
+}
+
+
+
+
+let addingToCart = async() => {
   let count = 0;
+  let cartItems = await getCartData();
+  console.log(cartItems);
   cartItems.forEach((el) => {
    if(el.name == product.name){
      count++;
    }
   });
-  if(count == 0){
-  cartItems.push(product);
-  alert("This Product Is Added To Your Cart Successfully!");
-  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  let user = JSON.parse(localStorage.getItem("user"));
+  // let product = JSON.parse(localStorage.getItem("product"));
+let  imgPrime = product.imgPrime;
+let  name = product.name;
+let  oriPrice = product.oriPrice;
+let  curPrice = product.curPrice;
+let  quantity = product.quantity;
+let  imgSub1 = product.imgSub1;
+let  imgSub2 = product.imgSub2;
+let  imgSub3 = product.imgSub3;
+console.log(product);
+  if(count == 0){  
+   fetch("http://localhost:2500/carts/", {
+                 "method": "POST",
+                 "headers": {
+                     "content-type": "application/json"
+                 },
+                 "body": JSON.stringify({
+                  user : user,
+                 imgPrime: imgPrime,
+                 name: name,
+                 oriPrice: oriPrice,
+                 curPrice: curPrice,
+                 quantity: quantity,
+                 imgSub1: imgSub1,
+                 imgSub2: imgSub2,
+                 imgSub3: imgSub3
+                 })
+         }).then(response => response.json())
+      .then(result => {
+          alert("Item Added To Cart Successfully!");
+      });
   }
   else{
   alert("This Product Has Already Added To Your Cart!");

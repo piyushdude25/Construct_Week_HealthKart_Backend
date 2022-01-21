@@ -280,6 +280,7 @@
          data.forEach((el) => {
              if(el.email == registerusername && el.password == registerpassword){
                  res = true;
+                 localStorage.setItem("user", JSON.stringify(el._id));
              }
          });
 

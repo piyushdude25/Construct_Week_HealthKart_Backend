@@ -1525,19 +1525,23 @@ margin-bottom: 15px;
 }
 .firstItemBox{
     width: 100%;
-    height: 68%;
+    height: 62%;
     border: 1px solid transparent;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    z-index: 1;
+    overflow-y: hidden;
 }
 .proceedToCart{
     width: 100%;
-    height: 35px;
+    height: 65px;
     background-color: chocolate;
     color: white;
     font-size: 16px;
     font-weight: 600;
     text-align: center;
-    padding: 8px;
+    padding: 15px;
+    z-index: 5;
 }
 .proceedToCart a{
     text-decoration: none;

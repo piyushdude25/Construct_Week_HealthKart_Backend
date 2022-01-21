@@ -1,10 +1,12 @@
-let data = JSON.parse(localStorage.getItem("cartItems"));
 
-var cartItem = localStorage.setItem("cartItem", JSON.stringify(data));
+let getCart = async() => {
+  let res = await fetch("http://localhost:2500/carts/");
+  let data = await res.json();
+  displayItem(data);
+}
 
-var showCartaItem = JSON.parse(localStorage.getItem("cartItem"));
 
-displayItem(showCartaItem);
+displayItem(data);
 
 // import logo from './logo/logo.js'
 // document.querySelector(#mainlogo).innerHTML=logo()
