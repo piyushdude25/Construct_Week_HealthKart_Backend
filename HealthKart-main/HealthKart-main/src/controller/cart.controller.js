@@ -29,6 +29,17 @@ router.get("/:id/", async(req, res) => {
     }
 });
 
+router.patch("/update/:id/", async(req, res) => {
+    try{
+        const cart = await Cart.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+        }).lean().exec();
+        return res.status(200).send(cart);
+    }catch(err){
+        return res.status(500).send(err.message);
+    }
+});
+
 router.delete("/remove/:id/", async(req, res) => {
     try{
         const cart = await Cart.findByIdAndDelete(req.body.id).lean().exec();

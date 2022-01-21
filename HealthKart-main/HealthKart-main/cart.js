@@ -2,11 +2,12 @@
 let getCart = async() => {
   let res = await fetch("http://localhost:2500/carts/");
   let data = await res.json();
+  console.log(data);
   displayItem(data);
 }
 
+getCart();
 
-displayItem(data);
 
 // import logo from './logo/logo.js'
 // document.querySelector(#mainlogo).innerHTML=logo()
@@ -66,18 +67,22 @@ function displayItem(showCartaItem) {
     logo2.addEventListener('click', function(){
       remove(item, index);
     });
-
-    function remove(item, index){
-     
-    showCartaItem.forEach((el) => {
-      if(el.name == item.name){
-        showCartaItem.splice(index, 1);
-        localStorage.setItem("cartItems", JSON.stringify(showCartaItem));
-        alert("Item Removed From Your Cart");
+         
+    
+    async function remove(item){
+    fetch(`http://localhost:2500/carts/remove/:id`, {
+      "method": "DELETE",
+      "headers": {
+        "content-type": "application/json"
+      },
+      "body": JSON.stringify({
+        id: item._id
+      })
+    });
+         alert("Item Successfully Removed From Your Cart!");
         window.location.reload();
       }
-    })
-    }
+
 
     let lDiv = document.createElement("div");
 
@@ -89,45 +94,95 @@ function displayItem(showCartaItem) {
 
     let rDiv = document.createElement("div");
 
-    let quantity = document.createElement("select");
+    let qty = document.createElement("select");
     let quantityopt = document.createElement("option");
     quantityopt.innerText = "Quantity";
-    quantity.append(quantityopt);
-    quantity.setAttribute("id", "itemQuantityOpt");
+    qty.append(quantityopt);
+    qty.setAttribute("id", "itemQuantityOpt");
     for (let i = 1; i <= 5; i++) {
       let quantityNo = document.createElement("option");
       quantityNo.innerText = [i];
-      quantity.append(quantityNo);
+      qty.append(quantityNo);
 
-      quantity.addEventListener('change', update);
+      qty.addEventListener('change', update);
     }
 
-     function update(){
-         let count = 0;
-         if(count == 0){
+      function update(){
+          let x = item;
+        let id = x._id;
+        console.log(id);
+          // Delete the given item from cart
+        fetch("http://localhost:2500/carts/remove/:id", {
+          "method": "DELETE",
+          "headers": {
+            "content-type": "application/json"
+          },
+          "body": JSON.stringify({
+            id: id
+          })
+        }).then(res => res.json())
+        .catch(err => {
+          console.log(err);
+        });
 
-        item.quantity = quantity.value;
-        console.log(item.quantity);
-        localStorage.setItem("cartItems", JSON.stringify(showCartaItem));
-        console.log(item.quantity);
-        alert(`The Quantity is updated to ${item.quantity}`)
-        window.location.reload();
-        count++;
-         }
-      }
+         let value = qty.value;
+        let user = JSON.parse(localStorage.getItem("user"));
+        let  imgPrime = x.imgPrime;
+        let  name = x.name;
+        let  oriPrice = x.oriPrice;
+        let  curPrice = x.curPrice;
+        let  quantity = value;
+        let  imgSub1 = x.imgSub1;
+        let  imgSub2 = x.imgSub2;
+        let  imgSub3 = x.imgSub3;
+      
+      // Posting the updated item in cart collection
+      fetch("http://localhost:2500/carts/", {
+        "method": "POST",
+        "headers": {
+          "content-type": "application/json"
+        },
+        "body": JSON.stringify({
+          user : user,
+          imgPrime: imgPrime,
+          name: name,
+          oriPrice: oriPrice,
+          curPrice: curPrice,
+          quantity: quantity,
+           imgSub1: imgSub1,
+           imgSub2: imgSub2,
+          imgSub3: imgSub3
+        })
+      }).then(res => res.json())
+      .then(res => console.log(res))
+      .catch(err => {
+        console.log(err);
+      });
 
-    priceLine.append(h3, h2);
+      alert(` Quantity is Updated to ${value} `);
+      window.location.reload();
+}
+
+         priceLine.append(h3, h2);
     lDiv.append(img);
-    mDiv.append(h1, priceLine, quantity, hr);
+    mDiv.append(h1, priceLine, qty, hr);
     rDiv.append(logo1, logo2);
 
     divPush.append(lDiv, mDiv, rDiv);
 
     document.getElementById("displayItem").append(divPush);
-  });
-}
+
+    })
+    }
+
+
+
+    
 
 // ================  total calculate fumction ========
+async function calculations() {
+  let res = await fetch("http://localhost:2500/carts/");
+  let showCartaItem = await res.json();
 
 var total = showCartaItem.reduce(function (startingValue, currentValue) {
   return startingValue + Number(currentValue.oriPrice * currentValue.quantity);
@@ -144,8 +199,6 @@ document.querySelector(
 
 document.querySelector("#totalMRP").innerHTML = ` ₹${total} `;
 
-//   ================finalPay =================
-
 var finalPay = showCartaItem.reduce(function (a, b) {
   return a + Number(b.curPrice * b.quantity);
 }, 0);
@@ -156,6 +209,23 @@ document.querySelector("#finalPay").innerHTML = `₹${finalPay}`;
 document.querySelector("#payButton").innerHTML =
   "Proceed to Pay: " + `  ₹${actual}`;
 
+var discount = total - actual;
+localStorage.setItem("discount", JSON.stringify(discount));
+
+document.querySelector("#tatalDis").innerHTML = ` ₹${discount}`;
+
+let prices = {
+  total:total,
+  payable: finalPay,
+  discount:discount
+}
+
+localStorage.setItem("priceAmounts", JSON.stringify(prices));
+}
+calculations();
+//   ================finalPay =================
+
+
 //   let proceedToPay = document.getElementById('payButton');
 //  proceedToPay.onclick = function(){
 //    window.location.href = "/Address.html";
@@ -163,10 +233,6 @@ document.querySelector("#payButton").innerHTML =
 
 // =================  total Dis  ============
 
-var discount = total - actual;
-localStorage.setItem("discount", JSON.stringify(discount));
-
-document.querySelector("#tatalDis").innerHTML = ` ₹${discount}`;
 
 
 
@@ -197,13 +263,13 @@ function setColor(e, btn, color) {
 
 // For payment part
 
-let prices = {
-  total:total,
-  payable: finalPay,
-  discount:discount
-}
+// let prices = {
+//   total:total,
+//   payable: finalPay,
+//   discount:discount
+// }
 
-localStorage.setItem("priceAmounts", JSON.stringify(prices));
+// localStorage.setItem("priceAmounts", JSON.stringify(prices));
 
 
 
