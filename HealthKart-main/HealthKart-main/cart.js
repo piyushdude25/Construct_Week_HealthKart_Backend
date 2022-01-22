@@ -126,7 +126,7 @@ function displayItem(showCartaItem) {
         });
 
          let value = qty.value;
-        let user = JSON.parse(localStorage.getItem("user"));
+        // let user = JSON.parse(localStorage.getItem("user"));
         let  imgPrime = x.imgPrime;
         let  name = x.name;
         let  oriPrice = x.oriPrice;
@@ -143,7 +143,6 @@ function displayItem(showCartaItem) {
           "content-type": "application/json"
         },
         "body": JSON.stringify({
-          user : user,
           imgPrime: imgPrime,
           name: name,
           oriPrice: oriPrice,

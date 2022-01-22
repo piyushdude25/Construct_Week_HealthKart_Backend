@@ -198,7 +198,7 @@ let addingToCart = async() => {
      count++;
    }
   });
-  let user = JSON.parse(localStorage.getItem("user"));
+  // let user = JSON.parse(localStorage.getItem("user"));
   // let product = JSON.parse(localStorage.getItem("product"));
 let  imgPrime = product.imgPrime;
 let  name = product.name;
@@ -216,7 +216,6 @@ console.log(product);
                      "content-type": "application/json"
                  },
                  "body": JSON.stringify({
-                  user : user,
                  imgPrime: imgPrime,
                  name: name,
                  oriPrice: oriPrice,
