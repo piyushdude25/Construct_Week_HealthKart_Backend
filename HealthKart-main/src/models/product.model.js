@@ -15,4 +15,3 @@ imgSub3: {type: String, required: true},
 const Product = mongoose.model("product", productSchema);
 
 module.exports = Product;
-

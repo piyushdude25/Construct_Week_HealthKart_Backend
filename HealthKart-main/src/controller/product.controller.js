@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Product = require("../models/product.model");
+const Product = require("../models/product.model.js");
 
 router.post("/", async(req, res) => {
     try{
@@ -32,9 +32,9 @@ router.get("/item/:id", async(req, res) => {
 // for sorting low to high
 router.get("/priceHL/", async(req, res) =>{
     try{
-        const products = await Product.find().lean().exec();
+        let  products = await Product.find().lean().exec();
         products = products.sort((a, b) => {
-            b.curPrice - a.curPrice;
+          return  b.curPrice - a.curPrice;
         });
         return res.status(200).send(products);
     }catch(err){
@@ -45,9 +45,9 @@ router.get("/priceHL/", async(req, res) =>{
 //for sorting low to high 
 router.get("/priceLH/", async(req, res) => {
     try{
-        const items = await Product.find().lean().exec();
+        let items = await Product.find().lean().exec();
         items = items.sort((a, b) => {
-            a.curPrice - b.curPrice;
+         return   a.curPrice - b.curPrice;
         });
         return res.status(200).send(items);
     }catch(err){
