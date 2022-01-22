@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require('dotenv').config();
+const Razorpay = require("razorpay");
+
 
 
 const connect = () => {
@@ -78,6 +80,20 @@ app.use("/products/", productController);
 //     res.send("user is logged out");
 // });
 
+// const razorpay = new Razorpay({
+//     key_id: "rzp_test_3r9tWvFFZv3Lix",
+//     key_secret: "XyujMP3HyDer7YtX9wVJCtbq"
+// })
+
+// app.post("/order/", (req, res) =>{
+//     let  options = {
+//   amount: 1 * 100,
+//   currency: "INR",
+// };
+// razorpay.orders.create(options, function(err, order){
+//     console.log(order);
+// })
+// )
 
 
 
