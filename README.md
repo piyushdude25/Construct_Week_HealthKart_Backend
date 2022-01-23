@@ -18,7 +18,7 @@ Hello everyone this is our third Construct Week Project at Masai School's Full S
  ![](.vscode/Blog%Images/Home%page.png)
  
  ---
- ![](.vscode/Blog%Images/Signup%Login%Page.png))
+ ![](.vscode/Blog%Images/Signup%Login%Page.png)
  
  ---
  ![](.vscode/Blog%Images/Products%Page.png)
