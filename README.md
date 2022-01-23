@@ -13,10 +13,13 @@ Hello everyone this is our third Construct Week Project at Masai School's Full S
                     1. Monika Kumari
                     2. Piyush Dudhakaware
                     3. Premkumar Hulikoppe
- 
- 
-### Some Sample Images of Clone site
 ---
+
+## Tech-Stack Used : 
+
+# Frontend Side   : HTML, CSS
+
+# Backend  Side   : Node JS, express JS, MongoDB(Database), Advanced JS, Local Storage, REST APIS, Mongoose
 
 [Link For Blog Post On Medium](https://medium.com/@premuhulikoppe/my-first-construct-week-project-1331359a7c7f)
 
