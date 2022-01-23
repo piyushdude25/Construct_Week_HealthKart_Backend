@@ -29,6 +29,17 @@ function createButton(event){
     }
 }
 
+let deleteCartItems = () => {
+  fetch("http://localhost:2500/carts/removeAll/", {
+      "method": "DELETE",
+      "headers": {
+          "content-type": "application/json"
+      }
+  }).then(res => res.json)
+  .then(result => console.log(result))
+  .catch(err => console.log(err))
+}
+
 
 function successfulPayment(event){
     
@@ -37,18 +48,20 @@ function successfulPayment(event){
     body.remove();
 
     var image11 = document.createElement("img");
-    image11.setAttribute("src","https://help.squadlocker.com/servlet/rtaImage?eid=ka03u000000xYdP&feoid=00N3u00000PV8rn&refid=0EM3u000002bXCJ");
+    image11.setAttribute("src","https://cdn.dribbble.com/users/2121936/screenshots/4814257/media/a9ba072da5d4bca2f595420a52ea1b09.gif");
     image11.setAttribute("id","image11");
 
     var container = document.getElementById("cont");
     container.append(image11);
 
-    alert("Payment Completed Successfully");
+    deleteCartItems();
 
+    alert("Payment Completed Successfully");
+ 
 }
 
 
-/// Price details
+// / Price details
 
 let price = JSON.parse(localStorage.getItem("priceAmounts"));
 
