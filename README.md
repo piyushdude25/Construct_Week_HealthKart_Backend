@@ -15,16 +15,16 @@ Hello everyone this is our third Construct Week Project at Masai School's Full S
 
 [Link For Blog Post On Medium](https://medium.com/@premuhulikoppe/my-first-construct-week-project-1331359a7c7f)
 
- ![](Construct%Week%HealthKart_Backend/.vscode/Blog%Images/Home%page.png)
+ ![](Blog%Images/Home%page.png)
  
  ---
- ![](Construct%Week%HealthKart_Backend/.vscode/Blog%Images/Signup%Login%Page.png))
+ ![](Blog%Images/Signup%Login%Page.png))
  
  ---
- ![](Construct%Week%HealthKart_Backend/.vscode/Blog%Images/Products%Page.png)
+ ![](Blog%Images/Products%Page.png)
  
  ---
- ![](Construct%Week%HealthKart_Backend/.vscode/Blog%Images/product%view%page.png)
+ ![](Blog%Images/product%view%page.png)
  ---
 
 
