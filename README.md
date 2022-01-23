@@ -9,12 +9,12 @@ Hello everyone this is our third Construct Week Project at Masai School's Full S
 
   So it was a great experience to us, while building this clone we have learnt so many new concepts and how to apply tech-tools whatever we have learnt in our current unit. The project covers basic front end designs up to a certain level and showcasing basic functionality like signup, signin, product viewing, adding it to cart then finally placing order by filling address details and making successful payment. I greatly thankful to my instructor *Dhaval Chheda* and also instructor associate *Kamal Gupta* for guiding which helpled us alot to feel confident and work upon the project to complete within the specified deadline period.
   
-  # Contributors : 
+  ### Contributors : 
                     1. Monika Kumari
                     2. Piyush Dudhakaware
                     3. Premkumar Hulikoppe
 
-# Tech-Stack Used : 
+### Tech-Stack Used : 
 
 Frontend Side   : HTML, CSS
 
