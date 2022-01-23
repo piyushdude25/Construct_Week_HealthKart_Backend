@@ -29,6 +29,17 @@ function createButton(event){
     }
 }
 
+let deleteCartItems = () => {
+  fetch("http://localhost:2500/carts/removeAll/", {
+      "method": "DELETE",
+      "headers": {
+          "content-type": "application/json"
+      }
+  }).then(res => res.json)
+  .then(result => console.log(result))
+  .catch(err => console.log(err))
+}
+
 
 function successfulPayment(event){
     
@@ -43,8 +54,10 @@ function successfulPayment(event){
     var container = document.getElementById("cont");
     container.append(image11);
 
-    alert("Payment Completed Successfully");
+    deleteCartItems();
 
+    alert("Payment Completed Successfully");
+ 
 }
 
 
