@@ -16,11 +16,11 @@ Hello everyone this is our third Construct Week Project at Masai School's Full S
 
 ### Tech-Stack Used : 
 
-Frontend Side   :  
-                   |. HTML  
-                   ||.CSS
+####Frontend Side   :  
+                   1. HTML  
+                   2. CSS
 
-Backend  Side   :  
+####Backend  Side   :  
                    * Node JS 
                    * express JS
                    * MongoDB(Database) 
