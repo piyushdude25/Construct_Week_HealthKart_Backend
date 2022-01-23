@@ -16,18 +16,18 @@ Hello everyone this is our third Construct Week Project at Masai School's Full S
 
 ### Tech-Stack Used : 
 
-####Frontend Side   :  
+1. Frontend Side   :  
                    1. HTML  
                    2. CSS
 
-####Backend  Side   :  
-                   * Node JS 
-                   * express JS
-                   * MongoDB(Database) 
-                   * Advanced JS 
-                   * Local Storage
-                   * REST APIS 
-                   * Mongoose
+2. Backend  Side   :  
+                   1. Node JS 
+                   2. express JS
+                   3. MongoDB(Database) 
+                   4. Advanced JS 
+                   5. Local Storage
+                   6. REST APIS 
+                   7. Mongoose
 
 [Link For Blog Post On Medium](https://medium.com/@premuhulikoppe/my-first-construct-week-project-1331359a7c7f)
 
