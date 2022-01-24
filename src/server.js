@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require('dotenv').config();
+const path = require("path");
 const port = process.env.PORT || 2500;
 
 
@@ -21,11 +22,25 @@ const productController = require("./controller/product.controller");
 
 const cartController = require("./controller/cart.controller");
 
+app.set("view engine", "ejs");
+app.use(express.static('public'));
+
+
 app.use("/users/", userController);
 
 app.use("/carts/", cartController);
 
 app.use("/products/", productController);
+
+app.use("/", (req, res) => {
+    console.log("enterd")
+try{
+    // res.send("hello");
+    res.render("index");
+}catch(err){
+    res.send(err.message);
+}
+})
 
 
 app.listen(port, async() => {
